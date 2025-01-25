@@ -1,0 +1,49 @@
+version: "1.0.0"
+metadata:
+  name: "project-context-support"
+  description: "Contextual project development assistant"
+  author: "r3bel"
+  tags: [utilityllm]
+  private: true
+inputs:
+  project_details:
+    type: string
+    description: "Comprehensive project context"
+    required: true
+    example: "{
+  'project_details': {
+    'name': 'GreenUrban Navigator',
+    'description': 'AI-powered platform for sustainable urban living',
+    'key_components': [
+      'Route optimization',
+      'Real-time city data integration',
+      'Mobile application',
+      'Sustainability recommendations'
+    ],
+    'technology_stack': [
+      'React Native',
+      'Node.js',
+      'TensorFlow',
+      'MongoDB'
+    ],
+    'current_development_stage': 'Prototype development'
+  }
+}"
+  user_query:
+    type: string
+    description: "Specific development question"
+    required: true
+    example: "How can I optimize route suggestions based on multiple sustainability criteria?"
+model:
+  provider: "openai"
+  name: "gpt-4o"
+prompt: |
+  Project Context: {project_details}
+  User Query: {user_query}
+
+  Provide targeted, context-aware technical guidance
+
+readme: |
+  # Hackathon Mentor AI Agent
+
+  Provides strategic project guidance for hackathon participants.

@@ -1,0 +1,42 @@
+# Version format ex. "0.0.1"
+version: "1.0.0"                            # Flow specification version
+
+# Basic metadata for the agent
+metadata:
+  name: "gpu-benchmark"                               # Unique identifier
+  description: "A brief description of your flow"       # Flow purpose
+  author: "anshkarwasra"                              # Must match your account username
+  tags: [tag1, tag2, tag3, ...]                       # Keywords for categorization
+  private: false                                       # Access control setting
+
+# Define the input variables required
+inputs:
+  userInput:                                              # First input parameter
+    type: string                                       # Currently only String format
+    description: "Description of input1"
+    required: true
+    example: "Example value for input1"
+  refObj:                                              # Second input parameter
+    type: string
+    description: "Description of input2"
+    required: false
+    example: "Example value for input2"
+
+# LLM configuration
+model:
+  provider: "openai"                            # e.g., anthropic, openai, meta, etc.
+  name: "gpt-4o"                                   # Specific model identifier
+
+# Dataset configuration (Optional)
+dataset:
+  source: "anshkarwasra/gpu-benchMark"                   # Make sure this dataset exists
+
+# Prompt template configuration
+prompt: |
+  Your flow's primary instruction or role...
+  You can use {input1} and {input2} placeholders to reference inputs.
+
+# ReadME configuration
+readme: |
+  Your flow's readme...
+  You can use raw text or markdown here.

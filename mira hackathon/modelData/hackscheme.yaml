@@ -1,0 +1,40 @@
+version: "1.0.0"
+metadata:
+  name: "hackathon-scheme-generator"
+  description: "Generates a detailed hackathon scheme based on the organizer's initial ideas"
+  author: "anshkarwasra"
+  tags: [hackathon, scheme, generator, organizer]
+  private: false
+inputs:
+  organizer_ideas:
+    type: string
+    description: "Initial ideas provided by the hackathon organizer, including theme, target audience, and goals."
+    required: true
+    example: "{
+      'theme': 'AI for Good',
+      'target_audience': ['students', 'professionals'],
+      'tracks': ['healthcare', 'environment', 'education'],
+      'duration': '48 hours',
+      'prize_structure': 'Cash rewards and mentorship opportunities'
+    }"
+model:
+  provider: "openai"
+  name: "gpt-4o"
+prompt: |
+  Organizer Ideas: {organizer_ideas}
+
+  Based on the provided ideas, generate a detailed hackathon scheme including:
+  - Name of the hackathon (creative and theme-aligned)
+  - Tracks in the hackathon (aligned with the theme and audience)
+  - Duration of the hackathon
+  - Pre-requisite technical skills (if applicable)
+  - Prize structure
+  - Suggested tools, frameworks, or APIs
+  - Judging criteria
+  - Any additional innovative elements to enhance the event experience
+readme: |
+  # Hackathon Scheme Generator
+
+  This AI agent helps hackathon organizers design a detailed scheme for their event based on the initial ideas they provide. The model ensures the scheme is theme-aligned, engaging, and actionable.
+
+

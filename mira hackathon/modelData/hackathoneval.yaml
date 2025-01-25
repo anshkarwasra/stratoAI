@@ -1,0 +1,112 @@
+version: "1.0.0"
+metadata:
+  name: "hackathon-project-evaluator"
+  description: "AI agent to evaluate hackathon projects based on the provided data"
+  author: "anshkarwasra"
+  tags: [hackathon, evaluation, project-ratings, insights]
+  private: false
+inputs:
+  readme_documents:
+    type: string
+    description: "List of doc contents of all projects to evaluate"
+    required: true
+    example: |
+     [ {- project_name: "EcoDrive"
+        readme: |
+          # EcoDrive
+          An AI-powered route planner for sustainable transportation.
+
+          ## Features
+          - Route optimization
+          - Carbon footprint analysis
+
+          ## Tech Stack
+          - React Native
+          - Node.js
+          - OpenAI API
+      },
+     { - project_name: "HealthTrack"
+        readme: |
+          # HealthTrack
+          A personal health monitoring and analytics app.
+
+          ## Features
+          - Heart rate monitoring
+          - Sleep pattern analysis
+
+          ## Tech Stack
+          - Flutter
+          - Python
+          - TensorFlow
+        }
+        ]
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+prompt: |
+  You are an AI-powered hackathon project evaluator. Your task is to assess multiple projects based on the provided info about them in the input list . Evaluate the projects based on:
+
+  1. **Clarity of Goals**: Are the project's goals well-defined and clearly articulated?
+  2. **Feature Depth**: How well-developed and innovative are the features described?
+  3. **Feasibility**: How practical and implementable is the project within the given constraints?
+  4. **Technology Stack**: How well-suited is the chosen technology stack for the project’s goals?
+  5. **Impact**: Does the project have potential for real-world impact?
+
+  Assign a rating out of 10 for each category and calculate an overall score. Provide detailed insights on what each project excels at and areas for improvement. Additionally, rank the projects based on their overall scores.
+
+  Example Output:
+  ```json(whcih contains its  keyes as follows  project_evaluations whose value is a list of objets descirding project name and its rating matrices and its overall score from 100,rank and at last insights from that object)
+  
+
+  Begin the evaluation with the provided README.md documents.
+readme: |
+  # Hackathon Project Evaluator
+
+  This AI-powered agent evaluates hackathon projects based on their README.md documents, providing a comprehensive analysis for leaderboard rankings and detailed insights to improve project quality.
+
+  ## Features
+  - Evaluates README.md files across multiple categories (Clarity of Goals, Feature Depth, Feasibility, Technology Stack, Impact).
+  - Assigns ratings out of 10 for each category and calculates an overall score.
+  - Ranks projects for a leaderboard.
+  - Provides actionable insights for improving each project.
+
+  ## Usage
+  - Input: A list of project README.md documents.
+  - Output: A JSON object containing evaluations, scores, ranks, and insights for each project.
+
+  ## Example
+  Input:
+  ```json
+  [
+    {
+      "project_name": "EcoDrive",
+      "readme": "# EcoDrive\nAn AI-powered route planner for sustainable transportation..."
+    },
+    {
+      "project_name": "HealthTrack",
+      "readme": "# HealthTrack\nA personal health monitoring and analytics app..."
+    }
+  ]
+  ```
+
+  Output:
+  ```json
+  {
+    "project_evaluations": [
+      {
+        "project_name": "EcoDrive",
+        "ratings": {
+          "clarity_of_goals": 8,
+          "feature_depth": 7,
+          "feasibility": 9,
+          "technology_stack": 8,
+          "impact": 9
+        },
+        "overall_score": 41,
+        "rank": 1,
+        "insights": "EcoDrive has clear goals and strong potential impact..."
+      }
+    ]
+  }
+  

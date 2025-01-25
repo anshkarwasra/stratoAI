@@ -1,0 +1,94 @@
+# Flow specification version
+version: "0.1.0"
+
+metadata:
+  flow_type: "compound"
+  name: "discord-bot-file-generator"
+  description: "Discord bot workflow to handle user input and optional file generation"
+  author: "anshkarwasra"
+  tags: [discord, ai-bot, file-generation]
+  private: true
+
+inputs:
+  user_message:
+    type: string
+    description: "User input message in Discord"
+    required: true
+    example: "Generate a README.md file"
+
+workflow:
+  first_flow:
+    type: "custom"
+    description: "Determine if file generation is requested"
+    model:
+      provider: "openai"
+      name: "gpt-4o"
+    inputs:
+      user_message: ${inputs.user_message}
+    prompt: |
+      Analyze the user message and return a boolean:
+      - Return TRUE if the message explicitly requests file generation
+      - Return FALSE if no file generation is needed
+      
+      Examples of file generation requests:
+      - "Create a README file"
+      - "Generate a Python script"
+      - "Make a text document"
+      
+      Examples of regular chat:
+      - "How are you?"
+      - "Tell me a joke"
+      - "Help with a problem"
+      
+      Input: {user_message}
+      Output: (boolean)
+
+  second_flow:
+    type: "custom"
+    depends_on: [first_flow]
+    inputs:
+      file_generation_flag: ${first_flow.output}
+      original_message: ${inputs.user_message}
+    model:
+      provider: "openai"
+      name: "gpt-4o"
+    prompt: |
+      Based on the file generation flag:
+
+      IF file_generation_flag is TRUE
+      Generate a file with the following requirements
+      - Determine an appropriate file name and extension based on the message.
+      - Create relevant content for the file.
+      - Return ONLY the JSON object with the following structure
+        fileName= <generated filename>,
+        fileExtension= <file extension>,
+        content=<file content>
+      Do not include any extra text or explanations outside the JSON object.
+
+      IF file_generation_flag is FALSE
+      Respond as a normal chatbot to the original message.
+      
+      Input Message {original_message}
+      File Generation Flag{file_generation_flag}
+
+output:
+  value:
+    - ${first_flow.output}
+    - ${second_flow.output}
+
+readme: |
+  ### Discord Bot File Generation Workflow
+  
+  This workflow handles two primary scenarios:
+  1. Regular Chatbot Interaction
+  2. File Generation on Demand
+  
+  #### Workflow Steps:
+  - **First Flow**: Determines if file generation is requested
+  - **Second Flow**: 
+    - If file generation requested, creates a file
+    - If no file generation, acts as standard chatbot
+  
+  #### Output Formats:
+  - Boolean indicating file generation request
+  - Either chatbot response or file generation JSON
