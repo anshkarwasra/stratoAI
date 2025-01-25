@@ -35,7 +35,7 @@ This AI Hackathon Simulator is a comprehensive platform designed to assist both 
 - *Website*: [abc.xyz](http://abc.xyz)
 
 ## Links 🌐
-- *Discord Bot*: [discord.com/xyz](https://discord.com/xyz)
+- *Discord Bot*: [discord.com/xyz](https://discord.gg/gUmCQUnU)
 - *Website*: [abc.xyz](http://abc.xyz)
 
 ## Built By 🛠
@@ -48,8 +48,8 @@ To get started with the project locally, follow these steps:
 
 1. Clone the repository:
    bash
-   git clone https://github.com/MIRAsubmission
-   cd MIRAsubmission
+   git clone https://github.com/anshkarwasara/stratoAI
+   cd stratoAI
    
 
 2. Install dependencies:
