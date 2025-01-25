@@ -166,4 +166,4 @@ bot = MyClient(command_prefix="!", intents=intents)
 async def on_ready():
     print(f"Logged in as {bot.user}")
 
-bot.run('MTMzMjUyMDg0ODc3MDMzNDc1MQ.GRvMp5.tlKPwGknyAuNLRPdj_FKdJnEqmpy1VILLFmFGM')
+bot.run('bot-token')
